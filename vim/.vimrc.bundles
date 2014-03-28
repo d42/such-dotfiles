@@ -1,0 +1,32 @@
+call vundle#rc()
+
+Bundle 'Raimondi/delimitMate'
+Bundle 'jaromero/vim-monokai-refined'
+Bundle 'gmarik/vundle'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'bling/vim-airline'
+"Bundle 'vim-scripts/Rainbow-Parentheses-Improved-and2' # YOU FUCKING MORONS
+Bundle 'luochen1990/rainbow'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/syntastic'
+Bundle 'godlygeek/tabular'
+Bundle 'SirVer/ultisnips'
+Bundle 'sjl/gundo.vim'
+"Bundle 'sirtaj/vim-openscad'
+Bundle 'majutsushi/tagbar'
+Bundle 'zhaocai/GoldenView.Vim'
+Bundle 'a.vim'
+Bundle 'Glench/Vim-Jinja2-Syntax'
+"Bundle 'Valloric/MatchTagAlways'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'rfc-syntax'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'tclem/vim-arduino'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'kelwin/vim-smali'
+Bundle 'mattn/emmet-vim'
+Bundle 'nsf/gocode'
+ filetype on
+ filetype plugin indent on
