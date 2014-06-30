@@ -8,6 +8,7 @@
 
 filetype plugin indent on
 syntax on                     " syntax highlighing
+set shell=bash                " syntastic hates fish
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 space) while possible
 set background=dark           " We are using dark background in vim
@@ -40,6 +41,7 @@ set wildignore+=*.swp,*.bak
 nnoremap ; :
 nmap <F7> :NERDTreeToggle<CR>
 nmap <leader>g :GundoToggle<CR>
+nmap - :YcmCompleter GoTo<CR>
 nnoremap <leader>b :LustyBufferExplorer<CR>
 nnoremap <leader>f :LustyBufferGrep<CR>
 map <F6> :TagbarToggle<CR>
@@ -115,9 +117,12 @@ set incsearch               " Incrementally search while typing a /regex
 
 
 let g:acp_completeoptPreview                        = 0
+let g:ycm_autoclose_preview_window_after_completion = 0
+let g:ycm_autoclose_preview_window_after_insertion = 0
 "let g:ycm_key_list_select_completion                = ['<TAB>']
-let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:ycm_filepath_completion_use_working_dir       = 1
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:airline_powerline_fonts = 1
 let g:tagbar_left                                   = 1
 let g:tagbar_autofocus                              = 1
@@ -149,11 +154,11 @@ let g:syntastic_python_checkers = ['python', 'pep8', 'flake8']
 
 "YouCompleteMe stuff
 let g:ycm_collect_identifiers_from_tags_files = 1
-imap <C-J> <esc><Plug>snipMateNextOrTrigger
-let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_filetype_specific_completion_to_disable = {'rst':''}
+
 let g:ycm_add_preview_to_completeopt                = 0
 
 
@@ -199,3 +204,5 @@ au syntax rst set tw=80
 "au BufRead,BufNewFile *.pde set filetype=arduino
 "au BufRead,BufNewFile *.ino set filetype=arduino
 au BufRead,BufNewFile *.nsm set filetype=nasm
+set path+=/usr/include/KDE/
+let g:syntastic_enable_highlighting=0
