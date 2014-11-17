@@ -1,52 +1,33 @@
- set nocompatible               " be iMproved
- set encoding=utf-8
+set nocompatible               " be iMproved
+set encoding=utf-8             "
+set laststatus=2               " always status line
 
- set laststatus=2
- set lazyredraw
- set rtp+=~/.vim/bundle/vundle/
- source ~/.vimrc.bundles
+set lazyredraw                 " tl;dr redraw only on :redraw
+set rtp+=~/.vim/bundle/vundle/ " runtimepath
+source ~/.vimrc.bundles        " bundles
+filetype plugin indent on
+syntax on                       " syntax highlighing
+" monitor some files :V
+autocmd bufwritepost .vimrc source $MYVIMRC
+autocmd bufwritepost .vimrc.bundle source $MYVIMRC
 
 filetype plugin indent on
-syntax on                     " syntax highlighing
-set shell=bash                " syntastic hates fish
-set number                    " Display line numbers
-set numberwidth=1             " using only 1 column (and 1 space) while possible
-set background=dark           " We are using dark background in vim
-set title                     " show title in console title bar
-set t_Co=256
-set clipboard=unnamedplus     " share clipboard with X
-au FileType html let b:loaded_delimitMate = 1
+syntax on                       " syntax highlighing
+set shell=bash                  " syntastic hates fish
+set number                      " Display line numbers
+set numberwidth=1               " using only 1 column (and 1 space) while possible
+"set background=dark            " We are using dark background in vim
+set title                       " show title in console title bar
+set t_Co=256                    " force colors
+set clipboard=unnamedplus       " share clipboard with X
 
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete
-
-let mapleader = ","
-let loaded_matchparen = 1 " disable matching parenthesis for great justice (or because it's slow as fuck). Use rainbow parentheses instead
+let mapleader =","
+nnoremap ; :
+let loaded_matchparen = 1       " disable matching parenthesis for great justice (or because it's slow as fuck). Use rainbow parentheses instead
 set mouse=a
-set hidden
+set hidden                      " keep buffers open
 set colorcolumn=80
 colo molokai
-
-
-" for when we forget to use sudo to open/edit a file
-cmap w!! silent w !sudo tee %
-
-" Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc
-set wildignore+=eggs/**
-set wildignore+=*.egg-info/**
-set wildignore+=*.swp,*.bak
-
-
-nnoremap ; :
-nmap <F7> :NERDTreeToggle<CR>
-nmap <leader>g :GundoToggle<CR>
-nmap - :YcmCompleter GoTo<CR>
-nnoremap <leader>b :LustyBufferExplorer<CR>
-nnoremap <leader>f :LustyBufferGrep<CR>
-map <F6> :TagbarToggle<CR>
-noremap <leader>n :LustyFilesystemExplorerFromHere<CR>
-set pumheight=6             " Keep a small completion windo
 
 
 
@@ -68,18 +49,18 @@ set shiftround              " rounds indent to a multiple of shiftwidth
 "set matchpairs+=<:>         " show matching <> (html mainly) as well
 set foldmethod=indent       " allow us to fold on indents
 set foldlevel=99            " don't fold by default
-set autochdir               " auto change directory to currently edited file
+"set autochdir               " auto change directory to currently edited file
 
 " don't outdent hashes
 inoremap # #
 
 
-" close preview window automatically when we move around
-"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-autocmd bufwritepost .vimrc source $MYVIMRC
-autocmd bufwritepost .vimrc.bundle source $MYVIMRC
 
+" Ignore these files when completing
+set wildignore+=*.o,*.obj,.git,*.pyc
+set wildignore+=eggs/**
+set wildignore+=*.egg-info/**
+set wildignore+=*.swp,*.bak
 
 
 """" Reading/Writing
@@ -91,7 +72,7 @@ set noro                    " Disable read only
 
 """" Messages, Info, Status
 set ls=2                    " allways show status line
-set vb t_vb=                " Disable all bells.  I hate ringing/flashing.
+set noeb vb t_vb=
 set confirm                 " Y-N-C prompt if closing with unsaved changes.
 set showcmd                 " Show incomplete normal mode commands as I type.
 set report=0                " : commands always print changed line count.
@@ -100,12 +81,10 @@ set ruler                   " Show some info, even without statuslines.
 set laststatus=2            " Always show statusline, even if only 1 window.
 set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\}
 
-
-
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
 set list
-set cursorline
+set cursorline " cursor line colors
 
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
@@ -116,93 +95,90 @@ set incsearch               " Incrementally search while typing a /regex
 
 
 
+" airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme='wombat'
+
+
+
+" tagbar
+let g:tagbar_left = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
+let g:tagbar_type_javascript = {'ctagsbin' : '/usr/bin/jsctags'}
+
+" youcompleteme
+set pumheight=6             " Keep a small completion windo
 let g:acp_completeoptPreview                        = 0
+let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:ycm_add_preview_to_completeopt                = 0
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_filepath_completion_use_working_dir       = 1
+let g:ycm_filetype_specific_completion_to_disable = {'rst':''}
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "let g:ycm_key_list_select_completion                = ['<TAB>']
 "let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-let g:ycm_filepath_completion_use_working_dir       = 1
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:airline_powerline_fonts = 1
-let g:tagbar_left                                   = 1
-let g:tagbar_autofocus                              = 1
-let g:tagbar_autoclose                              = 1
-let g:alternateExtensions_h                         = "cpp,cxx,c,cc,CC"
 
-let g:tagbar_type_javascript = {
-    \ 'ctagsbin' : '/usr/bin/jsctags'
-\ }
 
-" Load up virtualenv's vimrc if it exists
-if filereadable($VIRTUAL_ENV . '/.vimrc')
-    source $VIRTUAL_ENV/.vimrc
-endif
+" vim-bookmarks
+let g:bookmark_save_per_working_dir = 1
 
-"let g:rbpt_loadcmd_toggle = 1
 
+
+
+"Rainbow brackets
 let g:rainbow_active = 1 
 let g:rainbow_operators = 1
 
-noremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-autocmd! BufNewFile * silent! 0r ~/.vim/skel/tmpl.%:e
-
-
+" syntastic
 let g:syntastic_python_checkers = ['python', 'pep8', 'flake8']
 "let g:syntastic_quiet_warnings=1
 "let g:syntastic_quiet_messages = {'level': 'warnings'}
-
-
-"YouCompleteMe stuff
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:UltiSnipsExpandTrigger = "<c-j>"
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_filetype_specific_completion_to_disable = {'rst':''}
-
-let g:ycm_add_preview_to_completeopt                = 0
-
-
-
-" display-lines instead of real-lines
-nnoremap k gk
-nnoremap j gj
-
-
-
-
-let g:airline_theme='wombat'
-let g:UltiSnipsSnippetsDir = '~/.vimrc/UltiSnips'
-
- " glorious tags
- "
-let g:tagbar_type_css = {
-\ 'ctagstype' : 'Css',
-    \ 'kinds'     : [
-        \ 'c:classes',
-        \ 's:selectors',
-        \ 'i:identities'
-    \ ]
-\ }
-
-if executable('coffeetags')
-  let g:tagbar_type_coffee = {
-        \ 'ctagsbin' : 'coffeetags',
-        \ 'ctagsargs' : '',
-        \ 'kinds' : [
-        \ 'f:functions',
-        \ 'o:object',
-        \ ],
-        \ 'sro' : ".",
-        \ 'kind2scope' : {
-        \ 'f' : 'object',
-        \ 'o' : 'object',
-        \ }
-        \ }
-endif
-
-au syntax rst set tw=80
-"au BufRead,BufNewFile *.pde set filetype=arduino
-"au BufRead,BufNewFile *.ino set filetype=arduino
-au BufRead,BufNewFile *.nsm set filetype=nasm
-set path+=/usr/include/KDE/
 let g:syntastic_enable_highlighting=0
+
+" Viewdoc
+let g:viewdoc_open = "topleft new"
+
+" unite
+let g:unite_source_buffer_time_format = "[%H:%M]"
+
+
+
+" InstantRst
+let g:instant_rst_slow = 1
+
+
+" filetype-specific
+
+" rst
+au syntax rst set tw=80
+
+" html
+au FileType html let b:loaded_delimitMate = 1
+
+" Command-mode mappings
+" for when we forget to use sudo to open/edit a file
+cmap w!! silent w !sudo tee %
+
+
+" key mappings
+nmap <leader>f :Unite file_rec/async -no-split<CR>
+
+nmap <leader>b :LustyBufferExplorer<CR>
+nmap <leader>B :LustyBufferGrep<CR>
+nmap <leader>n :LustyFilesystemExplorerFromHere<CR>
+nmap <leader>N :LustyFilesystemExplorer<CR>
+
+nmap <leader>o :Unite outline<CR>
+nmap <leader>O :Unite outline -no-split<CR>
+nmap <leader>g :Unite grep:.::<CR>
+nmap <leader>u :GundoToggle<CR>
+nmap <leader>t :VimFilerExplore<CR>
+nmap <leader>m ma
+nmap <leader>q :Unite quickfix<CR>
+nmap -  :YcmCompleter GoToDefinition<CR>
+"set autochdir               " auto change directory to currently edited file

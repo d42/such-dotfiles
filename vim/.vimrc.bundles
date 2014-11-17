@@ -1,37 +1,54 @@
 call vundle#rc()
 
 Bundle 'Raimondi/delimitMate'
-Bundle 'jaromero/vim-monokai-refined'
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'bling/vim-airline'
-"Bundle 'vim-scripts/Rainbow-Parentheses-Improved-and2' # YOU FUCKING MORONS
 Bundle 'luochen1990/rainbow'
-Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'godlygeek/tabular'
 Bundle 'SirVer/ultisnips'
 Bundle 'sjl/gundo.vim'
-"Bundle 'sirtaj/vim-openscad'
-Bundle 'majutsushi/tagbar'
+"Bundle 'majutsushi/tagbar'
 Bundle 'zhaocai/GoldenView.Vim'
 Bundle 'a.vim'
-Bundle 'Glench/Vim-Jinja2-Syntax'
 "Bundle 'Valloric/MatchTagAlways'
 "Bundle 'Valloric/YouCompleteMe'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'honza/vim-snippets'
+Bundle 'tpope/vim-fugitive'
+Bundle 'powerman/vim-plugin-viewdoc'
+Bundle 'MattesGroeger/vim-bookmarks'
+
+Bundle 'sjbach/lusty'
+
+" Unite
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/unite-outline'
+Bundle 'osyo-manga/unite-quickfix'
+Bundle 'Shougo/vimproc'
+Bundle 'Shougo/vimfiler'
+
+"themes
+Bundle 'jaromero/vim-monokai-refined'
+
+"language-specific
+Bundle 'https://github.com/carlosgaldino/elixir-snippets.git'
+Bundle 'nsf/gocode'
+
+Bundle 'marijnh/tern_for_vim'
+Bundle 'Rykka/riv.vim'
+Bundle 'Rykka/InstantRst'
+Bundle 'mattn/emmet-vim'
+
+" syntax
+Bundle 'kelwin/vim-smali'
 Bundle 'rfc-syntax'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'tclem/vim-arduino'
-Bundle 'tsaleh/vim-matchit'
-Bundle 'kelwin/vim-smali'
-Bundle 'mattn/emmet-vim'
-Bundle 'nsf/gocode'
 Bundle 'dag/vim-fish'
-Bundle 'Rykka/riv.vim'
-Bundle 'honza/vim-snippets'
-Bundle 'marijnh/tern_for_vim'
-Bundle 'tpope/vim-fugitive'
- filetype on
- filetype plugin indent on
+Bundle 'Glench/Vim-Jinja2-Syntax'
+Bundle 'https://github.com/elixir-lang/vim-elixir.git'
+Bundle 'tclem/vim-arduino'
