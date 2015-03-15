@@ -21,7 +21,7 @@ set title                       " show title in console title bar
 set t_Co=256                    " force colors
 set clipboard=unnamedplus       " share clipboard with X
 
-let mapleader =","
+let mapleader = ","
 nnoremap ; :
 let loaded_matchparen = 1       " disable matching parenthesis for great justice (or because it's slow as fuck). Use rainbow parentheses instead
 set mouse=a
@@ -98,6 +98,8 @@ set incsearch               " Incrementally search while typing a /regex
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline_theme='wombat'
+let g:airline#extensions#syntastic#enabled  = 1
+let g:airline#extensions#hunks#enabled  = 1
 
 
 
@@ -110,11 +112,9 @@ let g:tagbar_type_javascript = {'ctagsbin' : '/usr/bin/jsctags'}
 " youcompleteme
 set pumheight=6             " Keep a small completion windo
 let g:acp_completeoptPreview                        = 0
-let g:UltiSnipsExpandTrigger = "<c-j>"
 let g:ycm_add_preview_to_completeopt                = 0
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion = 0
-let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_filepath_completion_use_working_dir       = 1
@@ -122,6 +122,11 @@ let g:ycm_filetype_specific_completion_to_disable = {'rst':''}
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 "let g:ycm_key_list_select_completion                = ['<TAB>']
 "let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+"let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:EclimCompletionMethod = 'omnifunc'
+let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger = "<c-down>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-up>"
 
 
 " vim-bookmarks
@@ -136,6 +141,7 @@ let g:rainbow_operators = 1
 
 " syntastic
 let g:syntastic_python_checkers = ['python', 'pep8', 'flake8']
+let g:syntastic_aggregate_errors = 1
 "let g:syntastic_quiet_warnings=1
 "let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_enable_highlighting=0
@@ -156,17 +162,26 @@ let g:instant_rst_slow = 1
 
 " rst
 au syntax rst set tw=80
+au syntax vimwiki set colorcolumn=120
+" au syntax wiki set colorcolumn=120
 
 " html
 au FileType html let b:loaded_delimitMate = 1
+au FileType html set tabstop=2               " <tab> inserts 4 spaces 
+au FileType html set shiftwidth=2            " but an indent level is 2 spaces wide.
+au FileType html set softtabstop=2           " <BS> over an autoindent deletes both spaces.
 
 " Command-mode mappings
 " for when we forget to use sudo to open/edit a file
 cmap w!! silent w !sudo tee %
+command -nargs=* Py ViewDocPydoc <args>
 
 
 " key mappings
 nmap <leader>f :Unite file_rec/async -no-split<CR>
+
+" Ex mode is not a cool guy
+nnoremap Q <nop>
 
 nmap <leader>b :LustyBufferExplorer<CR>
 nmap <leader>B :LustyBufferGrep<CR>
@@ -180,5 +195,9 @@ nmap <leader>u :GundoToggle<CR>
 nmap <leader>t :VimFilerExplore<CR>
 nmap <leader>m ma
 nmap <leader>q :Unite quickfix<CR>
+nmap <leader>s :VimShellPop<CR>
 nmap -  :YcmCompleter GoToDefinition<CR>
 "set autochdir               " auto change directory to currently edited file
+"
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2

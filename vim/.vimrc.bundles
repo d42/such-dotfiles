@@ -5,7 +5,8 @@ Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'bling/vim-airline'
 Bundle 'luochen1990/rainbow'
-Bundle 'scrooloose/nerdcommenter'
+"Bundle 'scrooloose/nerdcommenter'
+Bundle 'tomtom/tcomment_vim.git'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'godlygeek/tabular'
@@ -21,8 +22,17 @@ Bundle 'honza/vim-snippets'
 Bundle 'tpope/vim-fugitive'
 Bundle 'powerman/vim-plugin-viewdoc'
 Bundle 'MattesGroeger/vim-bookmarks'
+Bundle 'nathanaelkane/vim-indent-guides'
 
 Bundle 'sjbach/lusty'
+
+
+"Bundle 'airblade/vim-gitgutter'
+Bundle 'mhinz/vim-signify'
+
+"Bundle 'vim-scripts/Conque-Shell'
+Bundle 'terryma/vim-multiple-cursors'
+
 
 " Unite
 Bundle 'Shougo/unite.vim'
@@ -30,7 +40,9 @@ Bundle 'Shougo/unite-outline'
 Bundle 'osyo-manga/unite-quickfix'
 Bundle 'Shougo/vimproc'
 Bundle 'Shougo/vimfiler'
+Bundle 'Shougo/vimshell.vim'
 
+Bundle 'lilydjwg/colorizer' 
 "themes
 Bundle 'jaromero/vim-monokai-refined'
 
@@ -42,13 +54,21 @@ Bundle 'marijnh/tern_for_vim'
 Bundle 'Rykka/riv.vim'
 Bundle 'Rykka/InstantRst'
 Bundle 'mattn/emmet-vim'
+"Bundle 'vim-scripts/Conque-GDB'
+Bundle 'lervag/vim-latex'
 
 " syntax
 Bundle 'kelwin/vim-smali'
 Bundle 'rfc-syntax'
 Bundle 'hail2u/vim-css3-syntax'
+Bundle 'wavded/vim-stylus'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'dag/vim-fish'
 Bundle 'Glench/Vim-Jinja2-Syntax'
 Bundle 'https://github.com/elixir-lang/vim-elixir.git'
 Bundle 'tclem/vim-arduino'
+
+
+" Notes
+Bundle "vimwiki"
+Bundle "mattn/calendar-vim"
