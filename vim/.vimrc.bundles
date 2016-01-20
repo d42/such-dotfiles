@@ -1,74 +1,128 @@
-call vundle#rc()
-
-Bundle 'Raimondi/delimitMate'
-Bundle 'gmarik/vundle'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'bling/vim-airline'
-Bundle 'luochen1990/rainbow'
-"Bundle 'scrooloose/nerdcommenter'
-Bundle 'tomtom/tcomment_vim.git'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'godlygeek/tabular'
-Bundle 'SirVer/ultisnips'
-Bundle 'sjl/gundo.vim'
-"Bundle 'majutsushi/tagbar'
-Bundle 'zhaocai/GoldenView.Vim'
-Bundle 'a.vim'
-"Bundle 'Valloric/MatchTagAlways'
-"Bundle 'Valloric/YouCompleteMe'
-Bundle 'tsaleh/vim-matchit'
-Bundle 'honza/vim-snippets'
-Bundle 'tpope/vim-fugitive'
-Bundle 'powerman/vim-plugin-viewdoc'
-Bundle 'MattesGroeger/vim-bookmarks'
-Bundle 'nathanaelkane/vim-indent-guides'
-
-Bundle 'sjbach/lusty'
+call plug#begin('~/.vim/plugged')
 
 
-"Bundle 'airblade/vim-gitgutter'
-Bundle 'mhinz/vim-signify'
+" serious deps :3
+Plug 'Shougo/vimproc'
+Plug 'thinca/vim-quickrun'
+" Plug 'osyo-manga/shabadou.vim'
+" Plug 'idbrii/AsyncCommand'
+" Plug 'jceb/vim-hier'
+"
 
-"Bundle 'vim-scripts/Conque-Shell'
-Bundle 'terryma/vim-multiple-cursors'
+" Plug 'FredKSchott/CoVim'  " doesn't work with nvim
+" Plug 'cazador481/fakeclip.neovim'
+Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-haml'
 
+Plug 'embear/vim-localvimrc'
+
+" Plug 'sheerun/vim-polyglot'
+Plug 'digitaltoad/vim-jade'
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'joonty/vdebug'
+Plug 'skammer/vim-css-color'
+" Plug 'gorodinskiy/vim-coloresque' " breaks jade :_D
+Plug 'lilydjwg/colorizer'
+" Plug 'd42/vim-coloresque'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'mhinz/vim-startify'
+Plug 'mhinz/neovim-remote'
+
+Plug 'Raimondi/delimitMate'
+Plug 'gmarik/vundle'
+" Plug 'Lokaltog/vim-easymotion'
+Plug 'bling/vim-airline'
+" Plug 'cartolari/vim-niji'
+"Plug 'scrooloose/nerdcommenter'
+Plug 'tomtom/tcomment_vim'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'benekastah/neomake'
+" Plug 'osyo-manga/vim-watchdogs'
+Plug 'godlygeek/tabular'
+Plug 'SirVer/ultisnips'
+Plug 'rurkowce/ultisnips-jade'
+" Plug 'sjl/gundo.vim'
+Plug 'mbbill/undotree'
+Plug 'majutsushi/tagbar'
+Plug 'zhaocai/GoldenView.Vim'
+Plug 'a.vim'
+"Plug 'Valloric/MatchTagAlways'
+Plug 'Valloric/YouCompleteMe'
+" Plug 'tsaleh/vim-matchit'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-fugitive'
+Plug 'powerman/vim-plugin-viewdoc'
+Plug 'MattesGroeger/vim-bookmarks'
+" Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'python-rope/ropevim'
+
+" Plug 'kien/ctrlp.vim'
+Plug 'xolox/vim-session'
+Plug 'xolox/vim-misc'
+
+
+Plug 'mhinz/vim-signify'
+
+"Plug 'vim-scripts/Conque-Shell'
+" Plug 'terryma/vim-multiple-cursors'
+
+Plug 'elixir-lang/vim-elixir'
 
 " Unite
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/unite-outline'
-Bundle 'osyo-manga/unite-quickfix'
-Bundle 'Shougo/vimproc'
-Bundle 'Shougo/vimfiler'
-Bundle 'Shougo/vimshell.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+" does not integrate with airline
+Plug 'Shougo/unite-outline'
+Plug 'kannokanno/unite-todo'
+Plug 'osyo-manga/unite-quickfix'
+Plug 'Shougo/vimfiler'
+" Plug 'rurkowce/vimfiler_git.vim'
 
-Bundle 'lilydjwg/colorizer' 
+" Plug 'lilydjwg/colorizer' 
 "themes
-Bundle 'jaromero/vim-monokai-refined'
+Plug 'jaromero/vim-monokai-refined'
+Plug 'rurkowce/vim-kalisi'
+Plug 'trapd00r/neverland-vim-theme'
 
 "language-specific
-Bundle 'https://github.com/carlosgaldino/elixir-snippets.git'
-Bundle 'nsf/gocode'
+" Plug 'carlosgaldino/elixir-snippets.git'
+Plug 'fatih/vim-go'
 
-Bundle 'marijnh/tern_for_vim'
-Bundle 'Rykka/riv.vim'
-Bundle 'Rykka/InstantRst'
-Bundle 'mattn/emmet-vim'
-"Bundle 'vim-scripts/Conque-GDB'
-Bundle 'lervag/vim-latex'
+" Plug 'Rykka/riv.vim'
+" Plug 'Rykka/InstantRst'
+" Plug 'mattn/emmet-vim'
+"Plug 'vim-scripts/Conque-GDB'
+" Plug 'lervag/vim-latex'
+Plug 'rust-lang/rust.vim'
 
 " syntax
-Bundle 'kelwin/vim-smali'
-Bundle 'rfc-syntax'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'wavded/vim-stylus'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'dag/vim-fish'
-Bundle 'Glench/Vim-Jinja2-Syntax'
-Bundle 'https://github.com/elixir-lang/vim-elixir.git'
-Bundle 'tclem/vim-arduino'
+Plug 'kelwin/vim-smali'
+" Plug 'rfc-syntax'
+" Plug 'hail2u/vim-css3-syntax'
+" Plug 'wavded/vim-stylus'
+" Plug 'kchmck/vim-coffee-script'
+" Plug 'dag/vim-fish'
+" Plug 'Glench/Vim-Jinja2-Syntax'
+" Plug 'https://github.com/elixir-lang/vim-elixir.git'
+" Plug 'tclem/vim-arduino'
+Plug 'thinca/vim-visualstar'
+
+
+"muh frontend :_D
+Plug 'othree/html5-syntax.vim'
+Plug 'othree/html5.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'marijnh/tern_for_vim'
+Plug 'othree/javascript-libraries-syntax.vim'
 
 
 " Notes
-Bundle "vimwiki"
-Bundle "mattn/calendar-vim"
+Plug 'vimwiki'
+Plug 'mattn/calendar-vim'
+
+Plug 'dag/vim-fish'
+" Plug 'hail2u/vim-css3-syntax'
+" Plug 'groenewege/vim-less'
+
+call plug#end()

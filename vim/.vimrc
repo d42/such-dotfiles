@@ -1,36 +1,34 @@
-set nocompatible               " be iMproved
 set encoding=utf-8             "
 set laststatus=2               " always status line
 
-set lazyredraw                 " tl;dr redraw only on :redraw
-set rtp+=~/.vim/bundle/vundle/ " runtimepath
 source ~/.vimrc.bundles        " bundles
+source ~/.vimrc.menu
 filetype plugin indent on
 syntax on                       " syntax highlighing
-" monitor some files :V
-autocmd bufwritepost .vimrc source $MYVIMRC
-autocmd bufwritepost .vimrc.bundle source $MYVIMRC
 
-filetype plugin indent on
-syntax on                       " syntax highlighing
 set shell=bash                  " syntastic hates fish
 set number                      " Display line numbers
 set numberwidth=1               " using only 1 column (and 1 space) while possible
-"set background=dark            " We are using dark background in vim
-set title                       " show title in console title bar
+
+" set title                       " show title in console title bar
 set t_Co=256                    " force colors
-set clipboard=unnamedplus       " share clipboard with X
+set clipboard+=unnamedplus       " share clipboard with X
 
 let mapleader = ","
 nnoremap ; :
-let loaded_matchparen = 1       " disable matching parenthesis for great justice (or because it's slow as fuck). Use rainbow parentheses instead
+let g:loaded_matchparen = 1       " disable matching parenthesis for great justice (or because it's slow as fuck). Use rainbow parentheses instead
 set mouse=a
 set hidden                      " keep buffers open
 set colorcolumn=80
-colo molokai
+set background=dark
+colo Tomorrow-Night-Eighties
+set sessionoptions+=winsize
 
 
-
+"
+" Otherwise suggestions are not shown in the popup
+let g:UltiSnipsUsePythonVersion=2
+"
 """ Moving Around/Editing
 set nostartofline           " Avoid moving cursor to BOL when jumping around
 set virtualedit=block       " Let cursor move past the last char in <C-v> mode
@@ -49,10 +47,10 @@ set shiftround              " rounds indent to a multiple of shiftwidth
 "set matchpairs+=<:>         " show matching <> (html mainly) as well
 set foldmethod=indent       " allow us to fold on indents
 set foldlevel=99            " don't fold by default
-"set autochdir               " auto change directory to currently edited file
+set noautochdir               " auto change directory to currently edited file
 
 " don't outdent hashes
-inoremap # #
+" inoremap # #
 
 
 
@@ -66,24 +64,21 @@ set wildignore+=*.swp,*.bak
 """" Reading/Writing
 set noautowrite             " Never write a file unless I request it.
 set noautowriteall          " NEVER.
-set noautoread              " Don't automatically re-read changed files.
+set autoread                " automatically re-read changed files.
 set ffs=unix,dos,mac        " Try recognizing dos, unix, and mac line endings.
 set noro                    " Disable read only
 
 """" Messages, Info, Status
-set ls=2                    " allways show status line
-set noeb vb t_vb=
+" set noeb vb t_vb=
 set confirm                 " Y-N-C prompt if closing with unsaved changes.
-set showcmd                 " Show incomplete normal mode commands as I type.
-set report=0                " : commands always print changed line count.
-set shortmess+=aoOtI        " Use [+]/[RO]/[w] for modified/readonly/written.
-set ruler                   " Show some info, even without statuslines.
+" set shortmess+=aoOtI        " Use [+]/[RO]/[w] for modified/readonly/written.
+" set ruler                   " Show some info, even without statuslines.
 set laststatus=2            " Always show statusline, even if only 1 window.
-set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\}
+" set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\}
 
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
-set list
+au syntax python set list
 set cursorline " cursor line colors
 
 """ Searching and Patterns
@@ -100,51 +95,54 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='wombat'
 let g:airline#extensions#syntastic#enabled  = 1
 let g:airline#extensions#hunks#enabled  = 1
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 
 
 
 " tagbar
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 1
-let g:tagbar_autoclose = 1
+" let g:tagbar_autoclose = 1
 let g:tagbar_type_javascript = {'ctagsbin' : '/usr/bin/jsctags'}
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#flags = 'f'
 
 " youcompleteme
 set pumheight=6             " Keep a small completion windo
-let g:acp_completeoptPreview                        = 0
-let g:ycm_add_preview_to_completeopt                = 0
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_register_as_syntastic_checker = 0
+let g:ycm_filepath_completion_use_working_dir = 1
+" let g:acp_completeoptPreview                        = 0
+let g:ycm_add_preview_to_completeopt                = 1
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_filepath_completion_use_working_dir       = 1
+let g:ycm_confirm_extra_conf = 1
 let g:ycm_filetype_specific_completion_to_disable = {'rst':''}
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-"let g:ycm_key_list_select_completion                = ['<TAB>']
-"let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-"let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:ycm_extra_conf_globlist = ['~/projects/*']
 let g:EclimCompletionMethod = 'omnifunc'
-let g:UltiSnipsExpandTrigger = "<c-j>"
-let g:UltiSnipsJumpForwardTrigger = "<c-down>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-up>"
+
+let g:UltiSnipsExpandTrigger = "<nop>"
+let g:ulti_expand_or_jump_res = 0
+function ExpandSnippetOrCarriageReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+
 
 
 " vim-bookmarks
 let g:bookmark_save_per_working_dir = 1
 
-
-
-
-"Rainbow brackets
-let g:rainbow_active = 1 
-let g:rainbow_operators = 1
-
-" syntastic
-let g:syntastic_python_checkers = ['python', 'pep8', 'flake8']
-let g:syntastic_aggregate_errors = 1
-"let g:syntastic_quiet_warnings=1
-"let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_enable_highlighting=0
+let g:niji_matching_filetypes = ['lisp', 'ruby', 'python']
 
 " Viewdoc
 let g:viewdoc_open = "topleft new"
@@ -171,6 +169,10 @@ au FileType html set tabstop=2               " <tab> inserts 4 spaces
 au FileType html set shiftwidth=2            " but an indent level is 2 spaces wide.
 au FileType html set softtabstop=2           " <BS> over an autoindent deletes both spaces.
 
+
+au BufNewFile,BufRead *.classpath set filetype=eclipse_classpath
+au BufNewFile,BufRead *.jinja set filetype=jinja.jinja2.html
+
 " Command-mode mappings
 " for when we forget to use sudo to open/edit a file
 cmap w!! silent w !sudo tee %
@@ -183,21 +185,31 @@ nmap <leader>f :Unite file_rec/async -no-split<CR>
 " Ex mode is not a cool guy
 nnoremap Q <nop>
 
-nmap <leader>b :LustyBufferExplorer<CR>
-nmap <leader>B :LustyBufferGrep<CR>
-nmap <leader>n :LustyFilesystemExplorerFromHere<CR>
-nmap <leader>N :LustyFilesystemExplorer<CR>
+nmap <leader>b :Unite buffer<CR>
+" nmap <leader>B :LustyBufferGrep<CR>
+nmap <leader>n :Unite file_rec/neovim<CR>
+nmap <leader>N :VimFilerExplorer -parent <CR>
+"-explorer-columns=git<CR>
 
 nmap <leader>o :Unite outline<CR>
 nmap <leader>O :Unite outline -no-split<CR>
 nmap <leader>g :Unite grep:.::<CR>
-nmap <leader>u :GundoToggle<CR>
-nmap <leader>t :VimFilerExplore<CR>
-nmap <leader>m ma
-nmap <leader>q :Unite quickfix<CR>
-nmap <leader>s :VimShellPop<CR>
+nmap <leader>m :Unite menu<CR>
 nmap -  :YcmCompleter GoToDefinition<CR>
-"set autochdir               " auto change directory to currently edited file
-"
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
+
+
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_ignore_pattern = ['\.*.swp']
+
+autocmd! BufWritePost * Neomake
+autocmd! BufReadPost fugitive://* set bufhidden=delete
+let g:neomake_python_enabled_makers = ['pep8', 'pylama', 'pylint']
+tnoremap <Esc> <C-\><C-n>
+
+let g:localvimrc_persistent = 1
+let g:localvimrc_sandbox = 0
+
+" nvim-qt gnuj
+command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>") | let g:Guifont="<args>"
+Guifont  Meslo\ LG\ L\ DZ:h6:b
