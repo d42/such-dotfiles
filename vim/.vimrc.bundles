@@ -29,7 +29,6 @@ Plug 'mhinz/vim-startify'
 Plug 'mhinz/neovim-remote'
 
 Plug 'Raimondi/delimitMate'
-Plug 'gmarik/vundle'
 " Plug 'Lokaltog/vim-easymotion'
 Plug 'bling/vim-airline'
 " Plug 'cartolari/vim-niji'
