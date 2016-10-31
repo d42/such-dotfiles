@@ -3,15 +3,15 @@ set laststatus=2               " always status line
 
 source ~/.vimrc.bundles        " bundles
 source ~/.vimrc.menu
-filetype plugin indent on
-syntax on                       " syntax highlighing
+" filetype plugin indent on
+" syntax on                       " syntax highlighing
 
-set shell=bash                  " syntastic hates fish
+set shell=sh                  " syntastic hates fish
 set number                      " Display line numbers
 set numberwidth=1               " using only 1 column (and 1 space) while possible
 
 " set title                       " show title in console title bar
-set t_Co=256                    " force colors
+" set t_Co=256                    " force colors
 set clipboard+=unnamedplus       " share clipboard with X
 
 let mapleader = ","
@@ -19,11 +19,16 @@ nnoremap ; :
 let g:loaded_matchparen = 1       " disable matching parenthesis for great justice (or because it's slow as fuck). Use rainbow parentheses instead
 set mouse=a
 set hidden                      " keep buffers open
-set colorcolumn=80
+" set colorcolumn=80
 set background=dark
 colo Tomorrow-Night-Eighties
-set sessionoptions+=winsize
 
+autocmd InsertEnter * set colorcolumn=80
+autocmd InsertLeave * set colorcolumn=0
+autocmd WinEnter    * set cursorline
+autocmd WinLeave    * set nocursorline
+autocmd InsertEnter * set nocursorline
+autocmd InsertLeave * set cursorline
 
 "
 " Otherwise suggestions are not shown in the popup
@@ -45,9 +50,14 @@ set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 "set matchpairs+=<:>         " show matching <> (html mainly) as well
-set foldmethod=indent       " allow us to fold on indents
+" set foldmethod=indent       " allow us to fold on indents
 set foldlevel=99            " don't fold by default
 set noautochdir               " auto change directory to currently edited file
+
+set complete-=i   " disable scanning included files
+set complete-=t   " disable searching tags
+
+set synmaxcol=200
 
 " don't outdent hashes
 " inoremap # #
@@ -59,6 +69,7 @@ set wildignore+=*.o,*.obj,.git,*.pyc
 set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
 set wildignore+=*.swp,*.bak
+set wildignorecase " IgNoReCaSe :3
 
 
 """" Reading/Writing
@@ -110,11 +121,11 @@ let g:airline#extensions#tagbar#flags = 'f'
 
 " youcompleteme
 set pumheight=6             " Keep a small completion windo
+let g:ycm_server_python_interpreter = '/usr/bin/python3'
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_register_as_syntastic_checker = 0
 let g:ycm_filepath_completion_use_working_dir = 1
-" let g:acp_completeoptPreview                        = 0
 let g:ycm_add_preview_to_completeopt                = 1
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion = 0
@@ -161,17 +172,21 @@ let g:instant_rst_slow = 1
 " rst
 au syntax rst set tw=80
 au syntax vimwiki set colorcolumn=120
-" au syntax wiki set colorcolumn=120
 
 " html
 au FileType html let b:loaded_delimitMate = 1
-au FileType html set tabstop=2               " <tab> inserts 4 spaces 
+au FileType html set tabstop=2               " <tab> inserts 2 spaces 
 au FileType html set shiftwidth=2            " but an indent level is 2 spaces wide.
 au FileType html set softtabstop=2           " <BS> over an autoindent deletes both spaces.
+
+au FileType pug set tabstop=2               " <tab> inserts 2 spaces 
+au FileType pug set shiftwidth=2            " but an indent level is 2 spaces wide.
+au FileType pug set softtabstop=2           " <BS> over an autoindent deletes both spaces.
 
 
 au BufNewFile,BufRead *.classpath set filetype=eclipse_classpath
 au BufNewFile,BufRead *.jinja set filetype=jinja.jinja2.html
+let NERDTreeIgnore = ['\.pyc$']
 
 " Command-mode mappings
 " for when we forget to use sudo to open/edit a file
@@ -188,7 +203,7 @@ nnoremap Q <nop>
 nmap <leader>b :Unite buffer<CR>
 " nmap <leader>B :LustyBufferGrep<CR>
 nmap <leader>n :Unite file_rec/neovim<CR>
-nmap <leader>N :VimFilerExplorer -parent <CR>
+nmap <leader>N :NERDTreeToggle<CR>
 "-explorer-columns=git<CR>
 
 nmap <leader>o :Unite outline<CR>
@@ -202,14 +217,42 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
 let g:vimfiler_ignore_pattern = ['\.*.swp']
 
-autocmd! BufWritePost * Neomake
+" autocmd! BufWritePost * Neomake
 autocmd! BufReadPost fugitive://* set bufhidden=delete
-let g:neomake_python_enabled_makers = ['pep8', 'pylama', 'pylint']
+" let g:neomake_python_pylama_args = ['--format', 'pep8', '--ignore', 'E501']
 tnoremap <Esc> <C-\><C-n>
 
 let g:localvimrc_persistent = 1
 let g:localvimrc_sandbox = 0
 
 " nvim-qt gnuj
-command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>") | let g:Guifont="<args>"
-Guifont  Meslo\ LG\ L\ DZ:h6:b
+" command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>") | let g:Guifont="<args>"
+"
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('py', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
